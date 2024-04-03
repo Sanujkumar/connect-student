@@ -16,10 +16,9 @@ Connect Student is a web application designed to facilitate communication and co
 - **Notification System**: Users receive notifications for activities such as new comments, likes on their posts, or mentions.
 - **Privacy Settings**: Users can manage their privacy settings to control who can view their posts or profile information.
 - **Authentication and Authorization**: The project ensures secure login and authentication mechanisms. It also manages user roles and permissions effectively.
-- **Responsive Design**: The project interface is designed to be responsive, ensuring usability across various devices and screen sizes.
 - **Feedback and Reporting**: Users can provide feedback or report inappropriate content, helping maintain a positive and safe community environment.
-- **Admin Panel**: The project includes an admin panel for managing users, posts, reported content, and other aspects of the platform.
-- **Analytics and Insights**: The project may include analytics tools to provide insights into user engagement, popular topics, or trends within the platform.
+
+
 
 ## Technologies Used
 - JavaScript
@@ -80,9 +79,6 @@ Snapshots 📸 Help to make it better by adding your ideas or by making current 
 
 If you have an idea of any Njack_Hack_It_Out_Turn1ng you want to build, just open an appropriate issue regarding this, we will discuss and assign you that issue. In case you are confused and have queries, just ping in the discord; we will help you get along and build!
 
-‼️ For JWOC'23 program Admin and Mentor rights of Njack_Hack_It_Out_Turn1ng are given to Atri Sukul ‼️
-
-### Open Source programs this repo has been part of
 
 ### Contribution Guidelines
 
