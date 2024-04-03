@@ -53,7 +53,7 @@ exports.getAllUserDetails=async (req,res)=>{
     try{
         const id=req.user.id;
         //validation and get user details
-        console.log(id)
+        // console.log(id)
         const userDetails= await User.findById(id).populate('collageinfo').populate('profile').populate('postdetail').exec();
 
         return res.status(200).json({

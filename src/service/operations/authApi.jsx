@@ -1,4 +1,4 @@
-import {toast} from "react-hot-toast";
+import { toast } from 'react-toastify'
 import { setLoding,setToken } from "../../dataHouse/slice/authSlice";
 import { setUser } from "../../dataHouse/slice/profileSlice";
 import {apiConnector} from "../apiconnector";
@@ -91,7 +91,7 @@ export function signUp(
 //login 
 export function login(email,password,navigate){
     return async (dispatch)=>{
-        const toastId=toast.loading("Loading...")
+       
         dispatch(setLoding(true))
 
         try{
@@ -105,7 +105,7 @@ export function login(email,password,navigate){
             // if(!response.data.success){
             //     throw new Error(response.data.message);
             // }
-            
+            dispatch(setLoding(false))
             if(response.data.token){
                 toast.success("Login Succesfully")
                 dispatch(setToken(response.data.token))
@@ -126,10 +126,10 @@ export function login(email,password,navigate){
         }
         catch(error){
             console.log("LOGIN API ERROR............", error)
-            // console.log(error.toJSON().message);
             toast.error("Login Failed")
             dispatch(setLoding(false))
-            toast.dismiss(toastId)
+            navigate("/login")
+            toast.error("you have login agin")
         }
         
         

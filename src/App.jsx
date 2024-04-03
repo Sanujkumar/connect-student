@@ -12,7 +12,6 @@ import DocInfo from './component/profilecomp/studentpro/DocInfo';
 import CollageInfo from './component/profilecomp/studentpro/CollageInfo';
 import StudentUpdateForm from './component/profilecomp/studentpro/StudentUpdateForm';
 import ProctedRoutes from './component/core/ProctedRoutes';
-import OpenRoutes from './component/core/OpenRoutes';
 import CollageStudentDetails from './pages/CollageStudentDetails';
 import CollageAllstudent from './component/profilecomp/collagepro/CollageAllstudent';
 import CseStudent from './component/profilecomp/collagepro/CseStudent';
@@ -26,19 +25,18 @@ import CollageProfile from './component/collage/CollageProfile';
 import CollagePage from './component/collage/CollagePage';
 
 function App() {
+
   
   return (
     <div className="flex-row justify-center mt-16  min-h-screen">
-      
-    <Routes>
-    <Route path="/login" element={<Signin />} /> 
-          <Route path="/signup" element={<SignUp />} />  
-          <Route path="/verify-email" element={<VerifyEmail />} /> 
-    </Routes>
+    
+      <Routes>
+        <Route path="/login" element={<Signin />} /> 
+        <Route path="/signup" element={<SignUp />} />  
+        <Route path="/verify-email" element={<VerifyEmail />}/> 
+      </Routes>
       <ProctedRoutes> <Navbar/>
-     
         <Routes>
-          
           <Route path="/" element={<Home /> }/>
           <Route path="/collage" element={<Collage/>} >
             <Route index element={<CollagePage/>}/>
@@ -71,7 +69,7 @@ function App() {
           <Route path='/internet' element={<InternetAvable/>}/>
         </Routes>
       </ProctedRoutes>
-
+  
       </div>
   );
 }

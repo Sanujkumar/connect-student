@@ -5,7 +5,8 @@ import { setClose } from '../../dataHouse/slice/authSlice';
 const Twite = () => {
   
   const dispatch=useDispatch();
-  // const {user}=useSelector((state)=>state.profile)
+  const user=useSelector((state)=>state.profile);
+  
   const isOpen=useSelector((state)=>state.auth.isOpen)
   const handleClose=()=>{
     dispatch(setClose(true))
@@ -17,9 +18,9 @@ const Twite = () => {
         <div className='flex gap-x-1 my-6 mx-4' >
          <div >
           {/* {
-            user? (<img src={user?.image} className='h-[50px] w-[50px] rounded-full object-cover ' />):
-            (<CgProfile size={30} className='mx-auto place-self-center w-[10%] text-gray-400' />)
-          } */}
+            user? (<img src={user?.image} className='h-[50px] w-[50px] rounded-full object-cover ' />):("")}
+            {/* (<CgProfile size={30} className='mx-auto place-self-center w-[10%] text-gray-400' />) */}
+           
           
           </div>
           <button

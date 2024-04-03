@@ -45,33 +45,6 @@ exports.auth=(req,res,next)=>{
 
 
 
-
-
-
-
-
-//student
-// exports.isStudent=(req,res,next)=>{
-//     try{
-//         //need to change bs is not good algo for our project
-//         if(req.user.accountType !=="Student"){
-//             return res.status(402).json({
-//                 success:false,
-//                 message:'this is procted route for student',
-//             })
-//         }
-//         next();
-//     }
-    
-//     catch(error){
-//         return res.status(401).json({
-//             success:false,
-//             message:'User role is cant not be verify',
-//         });
-//     }
-    
-// }
-
 //collage
 // exports.isCollage=(req,res,next)=>{
 //             //need to change bs is not good algo for our project

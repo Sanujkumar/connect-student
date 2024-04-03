@@ -8,7 +8,7 @@ exports.redis=async(req,res,next)=>{
           const results = await client.json.get(`${id}`);
           
           if(results){
-            // res.send(results)
+            
             res.status(200).json({
               results
             })
@@ -44,4 +44,19 @@ exports.findDetails=async(req,res)=>{
     })
   }
 
+}
+
+
+//make list for fast exec of post 
+exports.postList=async(req,res,next)=>{
+  try{
+    
+
+  }catch(err){
+    console.log(err.message)
+    res.status(400).json({
+      message:err.message,
+      success:false,
+    })
+  }
 }

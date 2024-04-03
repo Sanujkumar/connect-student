@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { updateCollageDetails } from '../../../service/operations/profileApi';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 const formdata=[
   {name:"universityName",id:"universityName",type:"text",label:"University Name"},
   {name:"collageName",id:"collageName",type:"text",label:"collage Name"},
@@ -22,6 +23,7 @@ const formdata=[
 ]
 const StudentUpdateForm = () => {
   const token=useSelector((state)=>state.auth.token)
+  const navigate=useNavigate();
 
   const {
     register,

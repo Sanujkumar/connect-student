@@ -1,6 +1,7 @@
 import { apiConnector } from "../apiconnector";
 import { collageEndpoints } from "../apis";
 
+
 const {
     GET_ALL_STUDENT_API,GET_ALL_COLLAGE_PROFILE_API
 }=collageEndpoints

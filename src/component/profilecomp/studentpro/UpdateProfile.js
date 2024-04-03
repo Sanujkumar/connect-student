@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import {updateProfileDetails} from "../../../service/operations/profileApi"
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 const formdata=[
     {name:"firstName",id:"firstname",type:"text",label:"Name"},
     {name:"number",id:"number",type:"text",label:"M.No"},
@@ -14,10 +15,11 @@ const formdata=[
 ]
 const UpdateProfile = () => {
     const token=useSelector((state)=>state.auth.token)
+    const navigate=useNavigate();
     const {register, handleSubmit,} = useForm();
       const styledata="flex text-xl text-start p-3 my-3 rounded-md";
       const onsummit=(data)=>{
-        updateProfileDetails(data,token);
+        updateProfileDetails(data,token,navigate);
         // console.log(data)
       }
       
