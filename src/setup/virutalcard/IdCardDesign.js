@@ -2,7 +2,7 @@ import React from 'react'
 import sit from '../../asects/image/sit.png';
 import { useSelector } from 'react-redux';
 const IdCardDesign = () => {
-  const user_details=useSelector((state=>state.profile.user))
+  const user_details=useSelector((state)=>state.profile.user)
   console.log("from id card",user_details)
 
   return (
@@ -23,7 +23,7 @@ const IdCardDesign = () => {
       <p>Rej.No:-{user_details?.collageinfo?.rejno}</p>
       <p>Roll No:-{user_details?.collageinfo?.rollno}</p>
       <p>branch:-{user_details?.collageinfo?.branch}</p>
-      <p>D.O.V:-{new Date(user_details?.profile?.dob).toISOString().split('T')[0]}</p>
+      {/* <p>D.O.V:-{new Date(user_details?.profile?.dob).toISOString().split('T')[0]}</p> */}
      </div>
      <div className='flex justify-between text-start text-red-800 font-medium ml-4 mr-4' >
      <p>Blood Group:-{user_details?.collageinfo?.bloodgroup}</p>

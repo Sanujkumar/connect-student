@@ -24,6 +24,11 @@ const CollagePage = () => {
   useEffect(()=>{
     collageProfile();
   },[])
+
+  //cheack data is present or not
+  // if(data.size==0 || !CollageFacalitiesData || !branchdata){
+  //   return (<div className=' text-red-600 h-screen text-center text-2xl'> data is not aviable </div>)
+  // }
   return (
   <div className='w-10/12 mx-auto mb-12'>
     <div className='  flex-row justify-center items-center text-center mb-8 text-lg text-black bg-white rounded-md ' >

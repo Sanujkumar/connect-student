@@ -9,12 +9,27 @@
 //   });
 // //default it tekes 6379 port hit
 
+// const { createClient } =require( 'redis');
+
+// const client = createClient();
+
+// client.on('error', err => console.log('Redis Client Error', err));
+
+
+
+// module.exports=client;
+
+
+
 const { createClient } =require( 'redis');
+require("dotenv").config();
 
-const client = createClient();
-
-client.on('error', err => console.log('Redis Client Error', err));
-
-
+const client = createClient({
+    password: process.env.RED_PASSWORD,
+    socket: {
+        host: process.env.RED_HOST,
+        port: process.env.RED_PORT,
+    }
+});
 
 module.exports=client;

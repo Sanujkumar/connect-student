@@ -8,7 +8,7 @@ import BackSideDesign from './BackSideDesign';
 const VirutalId = () => {
 const idcarddata=useSelector((state)=>state.virtualIdCard);
 const idcardBackside=useSelector((state)=>state.idbackside);
-// console.log(idcardBackside);
+console.log("this is data is coming from card page",idcarddata);
 
 const usedispatch=useDispatch();
 
