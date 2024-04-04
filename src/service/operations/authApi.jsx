@@ -129,7 +129,7 @@ export function login(email,password,navigate){
             toast.error("Login Failed")
             dispatch(setLoding(false))
             navigate("/login")
-            toast.error("you have login agin")
+            
         }
         
         
