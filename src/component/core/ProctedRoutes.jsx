@@ -13,7 +13,7 @@ const ProctedRoutes = ({children}) => {
     useEffect(() => {
         if (token === null) {
             navigate("/login");
-            toast.success("you have to login..")
+            // toast.success("you have to login..")
             // console.log("this is current path",currentpath)
             if(currentpath==="/login" || currentpath==="/signup" || currentpath==="/verify-email"){
                 navigate(currentpath)

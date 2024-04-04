@@ -23,7 +23,7 @@ exports.createPost=async (req,res)=>{
 
         });
     }
-    
+    console.log("user id",id);
     const userDetils=await User.findById(id);
     // console.log("User detils",userDetils);
     if(!userDetils){

@@ -1,16 +1,26 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-
+import {ColorRing } from 'react-loader-spinner'
 
 const CollageInfo = () => {
   
   const {user}=useSelector((state)=>state.profile)
-  
+  const loading = useSelector((state) => state.auth.loading)
   return (
     <div>
-
-      <di  className='text-black  gap-y-4 text-lg w-6/12'>
+{
+  loading ? (<ColorRing 
+                className=" mx-auto border-white p-4"
+                  visible={true}
+                  height="80"
+                  width="80"
+                  ariaLabel="color-ring-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="color-ring-wrapper"
+                  colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                  />):
+  (<di  className='text-black  gap-y-4 text-lg w-6/12'>
         <div className=' flex justify-between font-bold  shadow-lg items-center p-2  ' >
           <p>Collage Details</p>
           <NavLink 
@@ -57,7 +67,9 @@ const CollageInfo = () => {
 
         </div>
 
-      </di>
+      </di>)
+}
+      
     </div>
   )
 }

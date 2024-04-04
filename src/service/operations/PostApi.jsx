@@ -71,6 +71,8 @@ export function createPost(formData, navigate, token) {
     }
     catch (error) {
       console.log("Post API error...", error.message);
+      dispatch(setLoding(false))
+      toast.error("something")
 
     }
 

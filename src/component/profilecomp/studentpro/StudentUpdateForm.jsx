@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { updateCollageDetails } from '../../../service/operations/profileApi';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 const formdata=[
   {name:"universityName",id:"universityName",type:"text",label:"University Name"},
@@ -24,6 +24,7 @@ const formdata=[
 const StudentUpdateForm = () => {
   const token=useSelector((state)=>state.auth.token)
   const navigate=useNavigate();
+  const dispatch=useDispatch();
 
   const {
     register,
@@ -32,7 +33,7 @@ const StudentUpdateForm = () => {
   } = useForm();
   const styledata="flex text-xl text-start p-3 my-3 rounded-md"
   const onsummit=(data)=>{
-    updateCollageDetails(data,token)
+    dispatch(updateCollageDetails(data,token,navigate))
   }
 
   return (

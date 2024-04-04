@@ -38,21 +38,21 @@ init();
 
 
 //working with redis server
- (async()=>{
+//  (async()=>{
  
 
 
-const result=await redis.rPop("bike",0,10)
-console.log(result)
-let length2=await redis.lLen("bike")
-console.log(length2)
-let list2=await redis.lRange("bike",0,-1);
-console.log(list2)
+// const result=await redis.rPop("bike",0,10)
+// console.log(result)
+// let length2=await redis.lLen("bike")
+// console.log(length2)
+// let list2=await redis.lRange("bike",0,-1);
+// console.log(list2)
 
 
-}
+// }
 
-)()
+// )()
 
 
 

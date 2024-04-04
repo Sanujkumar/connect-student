@@ -35,32 +35,38 @@ export async function getUserDetails(token,dispatch) {
   //  }
 }
 
-//update profile details
-export async function updateProfileDetails(data, token, navigate) {
 
-  try {
-    console.log(token, data)
-    const headers = { 'Authorization': `Bearer ${token}` };
-    const userDetails = await apiConnector("put", UPDAGE_USER_PROFILE_API, data, headers);
-    console.log("update successfully user data", userDetails)
-    navigate("/infolink")
-  } catch (err) {
-    console.log("something is issue while upadating the user details", err.message)
-  }
+//update profile details
+export  function updateProfileDetails(data, token, navigate) {
+    return async (dispatch)=>{
+      dispatch(setLoding(true))
+      try {
+        console.log(token, data)
+        const headers = { 'Authorization': `Bearer ${token}` };
+        const userDetails = await apiConnector("put", UPDAGE_USER_PROFILE_API, data, headers);
+        console.log("update successfully user data", userDetails)
+        navigate("/profile/infolink")
+      } catch (err) {
+        console.log("something is issue while upadating the user details", err.message)
+      }
+      dispatch(setLoding(false))
+    }
 }
 
-
 //update collage details
-export async function updateCollageDetails(data, token, navigate) {
-
-  try {
-    console.log(token, data)
-    const headers = { 'Authorization': `Bearer ${token}` };
-    const collageDetails = await apiConnector("put", UPDATE_COLLAGE_DETAILS_API, data, headers);
-    console.log("update successfully user data", collageDetails)
-    navigate("/collageinfo");
-  } catch (err) {
-    console.log("something is issue while upadating the collage details", err.message)
-  }
-
+export  function updateCollageDetails(data, token, navigate) {
+     return async (dispatch)=>{
+        dispatch(setLoding(true))
+     
+      try {
+        console.log(token, data)
+        const headers = { 'Authorization': `Bearer ${token}` };
+        const collageDetails = await apiConnector("put", UPDATE_COLLAGE_DETAILS_API, data, headers);
+        console.log("update successfully user data", collageDetails)
+        navigate("/profile/collageinfo");
+      } catch (err) {
+        console.log("something is issue while upadating the collage details", err.message)
+      }
+    dispatch(setLoding(false))
+    }
 }
