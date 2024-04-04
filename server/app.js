@@ -2,6 +2,7 @@ const express=require("express");
 const app=express();
 const cookieParser=require("cookie-parser");
 const session=require("express-session");
+const MemoryStore=require("memorystore")(session)
 require("dotenv").config();
 const redis=require("./config/client");
 //importing databse and cloudnary
@@ -73,8 +74,11 @@ app.use(bodyparser.json());
 app.use(session({
   secret: 'Ansy', // Change this to a secure secret
   resave: false,
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
   saveUninitialized: true,
-  cookie: { maxAge: 3600000 }, // Session timeout (in milliseconds)
+  cookie: { maxAge: 86400000 }, // Session timeout (in milliseconds)
 }))
 
 app.get('/api/v1/auth/logout', (req, res) => {
