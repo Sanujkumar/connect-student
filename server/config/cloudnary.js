@@ -1,6 +1,6 @@
 const cloudnary=require("cloudinary");
 
-
+require("dotenv").config();
 exports.CloudnaryConnect=()=>{
     try{
         cloudnary.v2.config({
