@@ -18,6 +18,7 @@ exports.auth=(req,res,next)=>{
             })
          }   
      //   verification of tooken
+    //  console.log("this is my security key",process.env.JWT_SECRET )
          try{
             const decode=jwt.verify(token,process.env.JWT_SECRET);
             // console.log( "after verification of token", decode);
