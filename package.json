@@ -54,5 +54,5 @@
   "devDependencies": {
     "tailwindcss": "^3.3.2"
   },
-  "proxy": "https://connect-student.onrender.com/api/v1"
+  "proxy": "http://localhost:2000/api/v1"
 }
