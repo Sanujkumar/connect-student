@@ -2,7 +2,10 @@ const express=require("express");
 const app=express();
 const cookieParser=require("cookie-parser");
 const session=require("express-session");
+const { createServer } = require('node:http');
 const MemoryStore=require("memorystore")(session)
+const {Server}=require("socket.io")
+
 require("dotenv").config();
 const redis=require("./config/client");
 //importing databse and cloudnary
@@ -24,8 +27,20 @@ const bodyparser=require("body-parser");
 
 
 const PORT=process.env.PORT || 5000;
-
+const server=createServer(app);
 //connect databse
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    
+    credentials: true
+  }}
+);
+
+// io.on("connection", (socket) => {
+//   console.log(socket); // x8WIv7-mJelg7on_ALbx
+// });
+
 
 dbConnect();
 
@@ -37,7 +52,15 @@ async function init(){
 }
 init();
 
-
+io.on("connection", (socket) => {
+  console.log(socket);
+  socket.on("hello", (arg) => {
+    console.log(arg); // world
+  });
+});
+io.on("connection", (socket) => {
+  socket.emit("hello", "world");
+});
 //working with redis server
 //  (async()=>{
  
@@ -92,8 +115,8 @@ app.get('/api/v1/auth/logout', (req, res) => {
     });
   });
 
-//it is allow all kind of request 
-//  app.use(cors());
+
+
 app.use(
     cors({
         origin:"*",
@@ -105,7 +128,7 @@ app.use(
 app.use(
     fileUpload({
         useTempFiles:true,
-        tempFileDir:"/temp",
+        tempFileDir:"./public/swp/",
     })
 );
 

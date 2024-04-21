@@ -1,6 +1,7 @@
 const Post=require("../../modules/post/userPost");
 const User=require("../../modules/user/User");
 const {uploadImageToCloudinary}=require("../../utils/imageUploader");
+const fs=require("node:fs")
 require("dotenv").config();
 
 exports.createPost=async (req,res)=>{
@@ -12,6 +13,9 @@ exports.createPost=async (req,res)=>{
   
 //    const thumbnail=req.files.file;
    const thumbnail=req.files.file;
+//    const fieldata= thumbnail.data
+//     const utf8data=fieldata.toString("utf8")
+//    console.log("this is our utf data",utf8data)
 
 //    console.log(thumbnail)
    console.log("desc and thuminal are ",desc,thumbnail);
@@ -36,6 +40,9 @@ exports.createPost=async (req,res)=>{
     //upload image to cluodnary
     const thumbnailImage=await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME);
 //    console.log(thumbnailImage)
+
+    //cleaning the file from server
+    fs.unlinkSync(thumbnail.tempFilePath)
     
     //create db entry for new post
     const newPost=await Post.create({
