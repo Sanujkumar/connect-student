@@ -3,7 +3,8 @@ import { toast } from 'react-toastify'
 import { apiConnector } from "../apiconnector"
 import { postendpoints } from "../apis"
 import { setClose } from "../../dataHouse/slice/authSlice"
-
+import  io from 'socket.io-client'
+const socket = io("http://localhost:10000/");
 const {
   CREATEPOST_API,
   GETALLPOST_API,
@@ -58,6 +59,17 @@ export function createPost(formData, navigate, token) {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       };
+      //write the code here for emiting the message
+      // socket.on("connect", () => {
+        // console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+        // socket.on("hello", (arg) => {
+        //   toast.success(arg);
+        //   console.log(arg); // world
+        // });
+        // socket.emit("hello1","this is post data file");
+      // });
+      // socket.emit(`hello1","this is post data file`);
+
       const response = await apiConnector("POST", CREATEPOST_API, formData, headers);
       dispatch(setLoding(false))
       console.log("post API Response...", response);

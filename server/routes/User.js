@@ -46,5 +46,5 @@ router.post("/resetPassword",resetPassword);
 // Export the router for use in the main application
 
 //when refresh the page it will call
-router.get("/refresh_page",auth,redis,findDetails)
+router.get("/refresh_page",auth,findDetails)
 module.exports=router;

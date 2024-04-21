@@ -101,11 +101,15 @@ exports.signUp=async (req,res)=>{
             collageinfo:collageDetails,
             image:`https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
         });
+        await  client.lPush("my_queue","user created succefully");
 
         return res.status(200).json({
             success:true,
             message:'user rejester succesfully ',
         });
+        
+      
+
     }
     catch(error){
         console.log(error);
@@ -160,8 +164,9 @@ exports.login=async (req,res)=>{
                 httpOnly:true,
             };
             //store the info in redis server
-            await client.json.set(`${user._id}`,'$',{user})
-            await client.expire(`${email}`,10);
+            // await client.json.set(`${user._id}`,'$',{user})
+            // await client.expire(`${email}`,10);
+            await  client.lPush("my_queue","user login succefully");
             res.cookie("token",token,options).status(200).json({
                 success:true,
                 message:'Logged in successfully',
