@@ -145,10 +145,12 @@ app.use(
 );
 
 app.use(
+
   fileUpload({
     useTempFiles: true,
     tempFileDir: "./public/swp/",
   })
+
 );
 
 
@@ -159,4 +161,9 @@ app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/post", postRoutes);
 
 
+
+
+app.get("/", (req, res) => {
+    res.send(`<h1 >Backend is Running and this is '/' Route</h1>`);
+  });
 
