@@ -23,38 +23,12 @@ import UpdateProfile from './component/profilecomp/studentpro/UpdateProfile';
 import InternetAvable from './component/setting/InternetAvable';
 import CollageProfile from './component/collage/CollageProfile';
 import CollagePage from './component/collage/CollagePage';
-import  io from 'socket.io-client'
-import { toast } from 'react-toastify';
-import { useEffect } from 'react';
-const socket = io("http://localhost:10000/");
+
+
+
 function App() {
  
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-      socket.on("hello", (arg) => {
-        toast.success(arg);
-        console.log(arg); // world
-      });
-      socket.emit("hello", "thank you bro for this help");
-    });
   
-    socket.on("connect_error", (err) => {
-      // the reason of the error, for example "xhr poll error"
-      console.log(err.message);
-  
-      // some additional description, for example the status code of the initial HTTP response
-      console.log(err.description);
-  
-      // some additional context, for example the XMLHttpRequest object
-      console.log(err.context);
-    });
-  
-    return () => {
-      socket.off("connect");
-      socket.off("hello"); // Remove listener for the "hello" event
-    };
-  }, []);
   
   
   return (

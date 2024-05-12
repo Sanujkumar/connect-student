@@ -1,12 +1,23 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {ColorRing } from 'react-loader-spinner'
-
+import { useEffect } from 'react';
+import { getUserDetails } from '../../../service/operations/profileApi';
 const StudentProfile = () => {
   const user = useSelector((state) => state.profile.user)
   const loading = useSelector((state) => state.auth.loading)
+  const token=useSelector((state)=>state.auth.token)
+  
+  const dispatch=useDispatch();
   console.log("form profiel page", user)
+
+  useEffect(()=>{
+    
+      dispatch(getUserDetails(token))
+ 
+  },[])
+
 
   return (
     <div>

@@ -1,90 +1,109 @@
-const express=require("express");
-const app=express();
-const cookieParser=require("cookie-parser");
-const session=require("express-session");
+const express = require("express");
+const app = express();
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 const { createServer } = require('node:http');
-const MemoryStore=require("memorystore")(session)
-const {Server}=require("socket.io")
-
+const MemoryStore = require("memorystore")(session)
+const { Server } = require("socket.io")
+const { Queue } = require("bullmq")
 require("dotenv").config();
-const redis=require("./config/client");
+const client = require("./config/client");
 //importing databse and cloudnary
-const dbConnect=require("./config/database");
-const {CloudnaryConnect }=require("./config/cloudnary");
+const dbConnect = require("./config/database");
+const { CloudnaryConnect } = require("./config/cloudnary");
 
 //importing router here
-const userRoutes=require("./routes/User");
-const profileRoutes=require("./routes/Profile");
-const postRoutes=require("./routes/post");
+const userRoutes = require("./routes/User");
+const profileRoutes = require("./routes/Profile");
+const postRoutes = require("./routes/post");
 
 
-const fileUpload=require("express-fileupload");
+const fileUpload = require("express-fileupload");
 // const cookieParser=require("cookie-parser");
 
-var cors=require("cors");
-const bodyparser=require("body-parser");
+var cors = require("cors");
+const bodyparser = require("body-parser");
+//websocket uisng the ws
+
+const { WebSocketServer, WebSocket } = require("ws")
 
 
 
-const PORT=process.env.PORT || 5000;
-const server=createServer(app);
-//connect databse
-const io = new Server(server, {
-  cors: {
-    origin: "*",
+const PORT = process.env.PORT || 5000;
+const httpServer=app.listen(PORT, () => {
+
+  console.log(`server stared at port ${PORT}`);
+});
+app.get("/", (req, res) => {
+  res.send(`<h1 >Backend is Running and this is '/' Route</h1>`);
+});
+
+
+// websocket implementations
+
+const wss = new WebSocketServer({ server: httpServer });
+
+wss.on('connection', function connection(ws) {
+  ws.on('error', console.error);
+console.log("websocket connected")
+  ws.on('message', function message(data, isBinary) {
+    wss.clients.forEach(function each(client) {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(data, { binary: isBinary });
+      }
+    });
     
-    credentials: true
-  }}
-);
+  });
 
-// io.on("connection", (socket) => {
-//   console.log(socket); // x8WIv7-mJelg7on_ALbx
-// });
-
+  ws.send('Hello! Message From Server!!');
+});
+const websocketfunctions=require("./routes/websocket")
+app.use(function (req, res, next) {
+  req.ws = wss;
+  return next();
+},websocketfunctions);
 
 dbConnect();
 
 CloudnaryConnect();
 
-// redis server working here
-async function init(){
-  await redis.connect();
+
+
+
+
+
+
+//working with the bullMq
+
+
+
+client.on('error', err => console.log('Redis error', err));
+client.on('reconnecting', msg => console.log('Redis reconnecting...', msg));
+client.on('close', () => console.log('Redis closed...'));
+client.on('connect', () => console.log('Redis connected...'));
+
+
+
+const myQueue = new Queue('myqueue', { connection: client });
+
+async function init() {
+  const res = await myQueue.add("email", { email: "roshan@gmail.com" })
+  console.log("job id is", res.id)
+
 }
-init();
 
-io.on("connection", (socket) => {
-  console.log(socket);
-  socket.on("hello", (arg) => {
-    console.log(arg); // world
-  });
-});
-io.on("connection", (socket) => {
-  socket.emit("hello", "world");
-});
-//working with redis server
-//  (async()=>{
- 
+// init();
 
 
-// const result=await redis.rPop("bike",0,10)
-// console.log(result)
-// let length2=await redis.lLen("bike")
-// console.log(length2)
-// let list2=await redis.lRange("bike",0,-1);
-// console.log(list2)
-
-
-// }
-
-// )()
-
-
-
-
-
-
-
-
+// io.on("connection", (socket) => {
+//   console.log(socket);
+//   socket.on("hello", (arg) => {
+//     console.log(arg); // world
+//   });
+// });
+// io.on("connection", (socket) => {
+//   socket.emit("hello", "world");
+// });
 
 
 
@@ -105,45 +124,39 @@ app.use(session({
 }))
 
 app.get('/api/v1/auth/logout', (req, res) => {
-    // Destroy the session to log the user out
-    req.session.destroy((err) => {
-      if (err) {
-        console.error('Error destroying session:', err);
-      }
-      res.send("you are now logout");
-    //   res.redirect('/login'); // Redirect the user to the login page or another suitable page
-    });
+  // Destroy the session to log the user out
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+    }
+    res.send("you are now logout");
+
   });
+});
 
 
 
 app.use(
-    cors({
-        origin:"*",
-		    credentials:true,
-        optionsSuccessStatus:200,
-    })
+  cors({
+    origin: "*",
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
 );
 
 app.use(
-    fileUpload({
-        useTempFiles:true,
-        tempFileDir:"./public/swp/",
-    })
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "./public/swp/",
+  })
 );
 
 
 
 //routes
-app.use("/api/v1/auth",userRoutes);
-app.use("/api/v1/profile",profileRoutes);
-app.use("/api/v1/post",postRoutes);
+app.use("/api/v1/auth", userRoutes);
+app.use("/api/v1/profile", profileRoutes);
+app.use("/api/v1/post", postRoutes);
 
-app.listen(PORT,()=>{
-    
-    console.log(`server stared at port ${PORT}`);
-});
 
-app.get("/", (req, res) => {
-    res.send(`<h1 >Backend is Running and this is '/' Route</h1>`);
-  });
+

@@ -3,17 +3,21 @@ import { toast } from 'react-toastify'
 import { apiConnector } from "../apiconnector"
 import { postendpoints } from "../apis"
 import { setClose } from "../../dataHouse/slice/authSlice"
-import  io from 'socket.io-client'
-const socket = io("http://localhost:10000/");
+import { data } from '../../component/data/AllStudent'
+import { setPostdata } from '../../dataHouse/slice/postSlice'
 const {
   CREATEPOST_API,
   GETALLPOST_API,
   GETRATINGOFPOST_API,
 } = postendpoints
+//to store the post 
+let result = []
 
+export  function getAllPost(token) {
+  return async(dispatch)=>{
 
-export async function getAllPost(token) {
-  let result = []
+  
+ 
   try {
     const headers = { 'Authorization': `Bearer ${token}` };
 
@@ -26,8 +30,12 @@ export async function getAllPost(token) {
     }
 
     result = responce.data.data;
-
-    return result;
+    // console.log("this is from post api ",result)
+    result.forEach((e)=>{
+      dispatch(setPostdata(e))
+    })
+    
+    // return result;
 
   }
   catch (error) {
@@ -35,7 +43,7 @@ export async function getAllPost(token) {
     console.log("get error in fetching the post ", error.message)
 
   }
-
+  }
 }
 
 
@@ -54,32 +62,27 @@ export function createPost(formData, navigate, token) {
         navigate("/internet")
       }
 
-      console.log("from create post api", formData);
+      console.log("from create post api", formData.desc,formData.file);
       const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       };
-      //write the code here for emiting the message
-      // socket.on("connect", () => {
-        // console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-        // socket.on("hello", (arg) => {
-        //   toast.success(arg);
-        //   console.log(arg); // world
-        // });
-        // socket.emit("hello1","this is post data file");
-      // });
-      // socket.emit(`hello1","this is post data file`);
-
+      
+      
       const response = await apiConnector("POST", CREATEPOST_API, formData, headers);
       dispatch(setLoding(false))
-      console.log("post API Response...", response);
+      console.log("post API Response...", response.data.data);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
+      
 
+      dispatch(setPostdata(response?.data.data))
       toast.success("Post created successfully");
       dispatch(setClose(false))
+      
+      
     }
     catch (error) {
       console.log("Post API error...", error.message);
@@ -102,11 +105,20 @@ export default function RatingAPost(like, dislike, share, postId, token) {
         {
           like, dislike, share, postId
         }, headers);
-
+      
+      let dataweb={"name":"roshan","town":"sit"}
+      const newSocket = new WebSocket('ws://localhost:2000/');
+      newSocket.onopen = () => {
+        console.log('Connection established');
+        newSocket.send(JSON.stringify(dataweb));
+      }
+      newSocket.onmessage = (message) => {
+        console.log('Message received:', message.data);
+      }
       // dispatch(setlike(RatingOf_Post.data.ratingReview.like))
       // dispatch(setdislike(RatingOf_Post.data.ratingReview.dislike))
       // dispatch(setShare(RatingOf_Post.data.ratingReview.share))
-
+      newSocket.close();
       // console.log(RatingOf_Post)
     }
     catch (err) {

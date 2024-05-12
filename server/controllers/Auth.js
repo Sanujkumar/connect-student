@@ -166,7 +166,7 @@ exports.login=async (req,res)=>{
             //store the info in redis server
             // await client.json.set(`${user._id}`,'$',{user})
             // await client.expire(`${email}`,10);
-            await  client.lPush("my_queue","user login succefully");
+            // await  client.lPush("my_queue","user login succefully");
             res.cookie("token",token,options).status(200).json({
                 success:true,
                 message:'Logged in successfully',

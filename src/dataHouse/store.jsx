@@ -5,7 +5,7 @@ import idcardReducer from './slice/idcardSlice';
 import idbacksideRe from './slice/IdbackSideslice';
 import authReducer from "./slice/authSlice";
 import profileReducer from "./slice/profileSlice";
-
+import postData from "./slice/postSlice"
 
 const store=configureStore({
   reducer:{
@@ -15,6 +15,7 @@ const store=configureStore({
     collagee:studentReducer,
     virtualIdCard:idcardReducer,
     idbackside:idbacksideRe,
+    post:postData,
 
   },
   middleware: (getDefaultMiddleware) => [

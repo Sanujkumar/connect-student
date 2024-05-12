@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {ColorRing } from 'react-loader-spinner'
-
+import { getUserDetails } from '../../../service/operations/profileApi'
 const CollageInfo = () => {
   
   const {user}=useSelector((state)=>state.profile)
   const loading = useSelector((state) => state.auth.loading)
+  const token=useSelector(state=>state.auth.token)
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    dispatch(getUserDetails(token))
+  },[])
   return (
     <div>
 {

@@ -1,31 +1,31 @@
 const client=require('../config/client')
 const User=require("../modules/user/User")
-exports.redis=async(req,res,next)=>{
-    try{
-        const id=req.user.id;
+// exports.redis=async(req,res,next)=>{
+//     try{
+//         const id=req.user.id;
      
-        // await client.json.set("bike0",'$',"this is me")
-          const results = await client.json.get(`${id}`);
+//         // await client.json.set("bike0",'$',"this is me")
+//           // const results = await client.json.get(`${id}`);
           
-          if(results){
+//           if(results){
             
-            res.status(200).json({
-              results
-            })
-          }
-          else{
-            next();
-          }
-        //   console.log(results)
-    }
-    catch(err){
-        res.status(401).json({
-            message:'something is issue while fetching the data from redis server',
-            err:err.message,
-        })
+//             res.status(200).json({
+//               results
+//             })
+//           }
+//           else{
+//             next();
+//           }
+//         //   console.log(results)
+//     }
+//     catch(err){
+//         res.status(401).json({
+//             message:'something is issue while fetching the data from redis server',
+//             err:err.message,
+//         })
 
-    }
-}
+//     }
+// }
 
 //find the user detils from db
 exports.findDetails=async(req,res)=>{

@@ -8,4 +8,4 @@ const CollageProfile = () => {
   )
 }
 
-export default CollageProfile
+export default CollageProfile;
