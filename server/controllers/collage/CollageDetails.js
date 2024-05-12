@@ -172,9 +172,12 @@ exports.addBranchDetails=async (req,res)=>{
             noOfSheet,
 
         }=req.body
-        const thumbnail=req.files.file
-        const url=await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME)
 
+        
+        const thumbnail=req.files.file
+        console.log(collageName,branchName,about,noOfSheet,thumbnail)
+        const url=await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME)
+                console.log("this is the cloudnary url",url)
         if(!url){
             res.status(401).json({
                 message:"file has not uploaded on cloufnary",

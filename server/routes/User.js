@@ -13,7 +13,7 @@ const {
 const {resetPasswordToken,
     resetPassword
 }=require("../controllers/profilecontrollers/ResetPassword");
-const {redis,findDetails}=require("../middlewares/redisServer")
+const {findDetails}=require("../middlewares/redisServer")
 const {auth}=require("../middlewares/auth")
 
 // Routes for Login, Signup, and Authentication

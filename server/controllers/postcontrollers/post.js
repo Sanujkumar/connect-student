@@ -51,7 +51,7 @@ exports.createPost=async (req,res)=>{
         thumbnail:thumbnailImage.secure_url,
     });
 
-    console.log("new post is here",newPost)
+    // console.log("new post is here",newPost)
     //add a new post to the user schema of user
     await User.findByIdAndUpdate(
         {_id:userDetils._id},

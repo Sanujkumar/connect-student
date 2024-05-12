@@ -2,12 +2,16 @@ import { toast } from "react-hot-toast";
 import { apiConnector } from "../apiconnector";
 import { profileEndpoints } from "../apis";
 import { setLoding } from "../../dataHouse/slice/authSlice";
+import { setUser } from "../../dataHouse/slice/profileSlice";
 const { GET_USER_DETAILS_API, UPDAGE_USER_PROFILE_API, UPDATE_COLLAGE_DETAILS_API } = profileEndpoints
 
 
 //get user details
-export async function getUserDetails(token,dispatch) {
+export  function getUserDetails(token) {
+    
+  return async (dispatch)=>{
 
+  
   try {
     // dispatch(setLoding(true))
     const headers = { 'Authorization': `Bearer ${token}` };
@@ -22,7 +26,9 @@ export async function getUserDetails(token,dispatch) {
     // const userImage = response.data.image
     // ? response.data.image
     // : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.data.firstName} ${response.data.data.lastName}`
-    return response.data;
+
+    dispatch(setUser(response.data?.userDetails))
+    console.log("this is from api",response.data?.userDetails)
   }
   catch (error) {
     // dispatch(logout(navigate))
@@ -32,7 +38,7 @@ export async function getUserDetails(token,dispatch) {
   }
   // toast.dismiss(toastId);
   // dispatch(setLoading(false))
-  //  }
+   }
 }
 
 

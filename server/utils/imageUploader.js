@@ -21,6 +21,7 @@ exports.uploadImageToCloudinary = async (file, folder, height, quality) => {
         
         fs.unlinkSync(file.tempFilePath)
         console.log("temp file path clear successfully")
+        return err;
     }
 
 }

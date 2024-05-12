@@ -15,4 +15,6 @@ router.post("/createPost",auth,createPost);
 router.get("/showAllPost",auth,showAllPost);
 router.post("/RatingAPost",auth,RatingAPost);
 
+
+
 module.exports=router;
