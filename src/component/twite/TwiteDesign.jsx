@@ -6,6 +6,8 @@ import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router'
 import { setClose } from '../../dataHouse/slice/authSlice'
 import {ColorRing } from 'react-loader-spinner'
+import { Textarea } from '../../components/ui/textarea';
+import { Button } from '../../components/ui/button';
 const TwiteDesign = () => {
   const token = useSelector((state) => state.auth.token)
   const loading=useSelector((state)=>state.auth.loading)
@@ -35,12 +37,12 @@ const TwiteDesign = () => {
     let formData = new FormData()
     formData.append('file', file)
     formData.append('desc', postData.desc)
-    console.log("post data are here", postData.desc)
+    // console.log("post data are here", formData.file)
     if (!desc) {
       toast.error(" description are required")
     }
     dispatch(createPost(formData, navigate, token))
-    console.log("function calling seccess")
+    console.log("function calling success")
     setpostData({
       desc: "",
     })
@@ -75,19 +77,19 @@ const TwiteDesign = () => {
         </div>
         <form onSubmit={handlerOnSummit} >
           <div >
-            <textarea
-              cols={30}
-              rows={20}
+            <Textarea
+              cols={20}
+              rows={5}
               name="desc"
               value={desc}
               onChange={handleOnchange1}
               placeholder='share your thought'
-              className='w-full m-2 p-4 font-mono border-b outline-none h-[200px]'
+              
             // {...register}
             />
 
           </div>
-          {/* file upload setion */}
+          {/* file upload section */}
 
           <div>
             <input
@@ -97,14 +99,15 @@ const TwiteDesign = () => {
               multiple
               value={data}
               onChange={handleOnchange2}
+              
               className=' border-none p-2 rounded-md outline-none'
             />
 
           </div>
-
-          <button type='submit'
-            className=' bg-gray-100 text-black text-sm  rounded font-semibold hover:bg-slate-200  p-2 px-6'
-          >Post</button>
+          <div className=' flex justify-end'>
+          <Button type='submit' className="w-24">Post</Button>
+          </div>
+          
 
         </form>
       </div>

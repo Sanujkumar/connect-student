@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {ColorRing } from 'react-loader-spinner'
 import { useEffect } from 'react';
 import { getUserDetails } from '../../../service/operations/profileApi';
+import { Button } from '../../../components/ui/button';
 const StudentProfile = () => {
   const user = useSelector((state) => state.profile.user)
   const loading = useSelector((state) => state.auth.loading)
@@ -38,8 +39,7 @@ const StudentProfile = () => {
           <NavLink
             to={"/profile/updateprofile"}
           >
-            <button
-              className=' px-4 border border-solid border-cyan-500 rounded-md  hover:bg-cyan-800 py-1 ' >update</button></NavLink>
+            <Button  >update</Button></NavLink>
         </div>
         {/* profile photo */}
         <div className='flex gap-2 text-black items-center m-4' >

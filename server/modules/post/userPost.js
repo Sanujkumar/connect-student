@@ -1,4 +1,5 @@
 const mongoose=require("mongoose")
+var aggregatePaginate=require("mongoose-aggregate-paginate-v2")
 
 const postSchema=new mongoose.Schema({
   
@@ -10,12 +11,6 @@ const postSchema=new mongoose.Schema({
         type:Date,
         default:Date.now(),
     },
-    ratingOfPost:[
-        {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"RatingAPost",
-        }
-    ],
     
     thumbnail:{
         type:String,
@@ -25,24 +20,14 @@ const postSchema=new mongoose.Schema({
         type:[String],
        
     },
-    like: {
-		type: Number,
-        default:0,
-		
-	},
-    dislike: {
-		type: Number,
-		default:0,
-	},
-    share: {
-		type: Number,
-		default:0,
-	},
+    
     instructor:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         
     },
 });
+
+postSchema.plugin(aggregatePaginate);
 
 module.exports=mongoose.model("post",postSchema);

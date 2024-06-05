@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {ColorRing } from 'react-loader-spinner'
 import { getUserDetails } from '../../../service/operations/profileApi'
+import { Button } from '../../../components/ui/button'
 const CollageInfo = () => {
   
   const {user}=useSelector((state)=>state.profile)
@@ -28,11 +29,7 @@ const CollageInfo = () => {
   (<di  className='text-black  gap-y-4 text-lg w-6/12'>
         <div className=' flex justify-between font-bold  shadow-lg items-center p-2  ' >
           <p>Collage Details</p>
-          <NavLink 
-              to={"/profile/updateform"}
-          >
-          <button 
-           className=' px-4 border border-solid border-cyan-500 rounded-md  hover:bg-cyan-800 py-1 ' >update</button></NavLink>
+          <NavLink  to={"/profile/updateform"}><Button>update</Button></NavLink>
         </div>
         {/* profile photo */}
         <div className='flex gap-2 text-black items-center m-4' >

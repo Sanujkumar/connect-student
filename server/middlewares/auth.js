@@ -6,18 +6,18 @@ const User=require("../modules/user/User");
 //auth
 exports.auth=(req,res,next)=>{
     try{
-        //extract the tooken
+        //extract the token
         const token=  req.cookies.token || req.body.token || req.headers.authorization.split(' ')[1];
 
-         //if token is misssing the return resp
-         
+         //if token is missing the return resp
+         console.log("token is this",token)
          if(!token){
             return res.status(401).json({
                 success:false,
                 message:'Token is missing',
             })
          }   
-     //   verification of tooken
+     //   verification of token
     //  console.log("this is my security key",process.env.JWT_SECRET )
          try{
             const decode=jwt.verify(token,process.env.JWT_SECRET);
@@ -26,7 +26,7 @@ exports.auth=(req,res,next)=>{
             // console.log(decode.id)
          }   
          catch(error){
-            //verification issu
+            //verification issue
             return res.status(401).json({
                 success:false,
                 message:'token is invalid',
@@ -38,7 +38,7 @@ exports.auth=(req,res,next)=>{
         console.log(error);
         return res.status(401).json({
             success:false,
-            message:'something wend worng while validation the tooken',
+            message:'something wend wrong while validation the token',
         })
     }
 };

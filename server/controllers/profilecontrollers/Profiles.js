@@ -53,8 +53,41 @@ exports.getAllUserDetails=async (req,res)=>{
     try{
         const id=req.user.id;
         //validation and get user details
-        // console.log(id)
+        
         const userDetails= await User.findById(id).populate('collageinfo').populate('profile').populate('postdetail').exec();
+        const userDetails2=await User.aggregate([
+            {
+              $lookup: {
+                from: "profileInfo",
+                localField: "profile",
+                foreignField: "_id",
+                as: "profile_detail"
+              }
+            },
+            {
+              $lookup: {
+                from: "collageInfo",
+                localField: "collageinfo",
+                foreignField: "_id",
+                as: "collage_d"
+              }
+            },
+            {
+              $project: {
+                firstName: 1,
+                email: 1,
+                totalPost:{
+                  $size:"$postdetail",
+                },
+                image: 1,
+                profile_detail: 1,
+                collage_d: 1,
+                
+              }
+            },
+          ]);
+
+          console.log("this is new style",userDetails2)
 
         return res.status(200).json({
             success:true,

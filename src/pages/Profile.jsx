@@ -16,9 +16,7 @@ const Profile = () => {
         <div className="min-h-screen w-[60%]  mx-auto">
           <Outlet/>
         </div>
-       
       </div>
-  
      <Bottomlevel className="justify-bottom items-baseline"/>
     </div>
   )

@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { setSignupData } from "../dataHouse/slice/authSlice";
 import { sendotp } from '.././service/operations/authApi';
-
+import { Input } from '../components/ui/input';
+import { Button } from '../components/ui/button';
 
 const SignUp = () => {
 
@@ -70,7 +71,7 @@ const SignUp = () => {
 
         <div className="flex gap-x-4">
           <label>
-            <input
+            <Input
               required
               type="text"
               name="firstName"
@@ -85,7 +86,7 @@ const SignUp = () => {
           </label>
           <label>
 
-            <input
+            <Input
               required
               type="text"
               name="lastName"
@@ -102,7 +103,7 @@ const SignUp = () => {
         <div className='flex justify-start' >
           <label className="w-full">
 
-            <input
+            <Input
               required
               type="text"
               name="email"
@@ -119,7 +120,7 @@ const SignUp = () => {
         <div className="flex gap-x-4">
           <label className="relative">
 
-            <input
+            <Input
               required
               type={showPassword ? "text" : "password"}
               name="password"
@@ -144,7 +145,7 @@ const SignUp = () => {
           </label>
           <label className="relative">
 
-            <input
+            <Input
               required
               type={showConfirmPassword ? "text" : "password"}
               name="conformPass"
@@ -168,12 +169,7 @@ const SignUp = () => {
             </span>
           </label>
         </div>
-        <button
-          type="submit"
-          className="mt-4 rounded-[8px] bg-cyan-800 py-[6px] px-[12px] font-medium text-white  "
-        >
-          Create Account
-        </button>
+        <Button type="submit"> Create Account</Button>
       </form>
     </div>
   )

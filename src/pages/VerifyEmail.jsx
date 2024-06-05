@@ -6,7 +6,8 @@ import { RxCountdownTimer } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import  {sendotp, signUp}  from "../service/operations/authApi"
 import { useNavigate } from "react-router-dom";
-
+import { InputOTP } from "../components/ui/input-otp";
+import { Button } from "../components/ui/button";
 function VerifyEmail() {
   const [otp, setOtp] = useState("");
   const { signupData, loading } = useSelector((state) => state.auth);
@@ -56,7 +57,7 @@ function VerifyEmail() {
                   style={{
                     boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
                   }}
-                  className="w-[48px] lg:w-[60px] border-0 bg-richblack-800 rounded-[0.5rem] text-richblack-5 aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50"
+                  className="w-[48px] lg:w-[60px] border my-2 bg-richblack-800 rounded-[0.5rem] text-richblack-5 aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50"
                 />
               )}
               containerStyle={{
@@ -64,12 +65,8 @@ function VerifyEmail() {
                 gap: "0 6px",
               }}
             />
-            <button
-              type="submit"
-              className="w-full bg-yellow-50 py-[12px] px-[12px] rounded-[8px] mt-6 font-medium text-richblack-900"
-            >
-              Verify Email
-            </button>
+            <Button className="w-full" type="submit"> Verify Email </Button>
+            
           </form>
           <div className="mt-6 flex items-center justify-between">
             <Link to="/signup">
@@ -77,13 +74,10 @@ function VerifyEmail() {
                 <BiArrowBack /> Back To Signup
               </p>
             </Link>
-            <button
-              className="flex items-center text-blue-100 gap-x-2"
-              onClick={() => dispatch(sendotp(signupData.email))}
-            >
+            <Button onClick={() => dispatch(sendotp(signupData.email))}>
               <RxCountdownTimer />
               Resend it
-            </button>
+            </Button>
           </div>
         </div>
       )}

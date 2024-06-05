@@ -10,14 +10,12 @@ export const endpoints={
     SENDOTP_API:BASE_URL+ "/auth/sendOTP",
     SIGNUP_API:BASE_URL+ "/auth/signUp",
     LOGIN_API:BASE_URL +"/auth/login",
-    //checked working fine above function
     RESETPASSWORD_API:BASE_URL+"/auth/changePassword",
-    //right now is not checked
     RESETPASSWORDTOKEN_API:BASE_URL + "/auth/reset-password-token",
     REFRESH_PAGE:BASE_URL+"/auth/refresh_page"
 }
 
-//profile endpoins
+//profile endpoint
 
 export const profileEndpoints={
 
@@ -30,14 +28,20 @@ export const profileEndpoints={
 
 export const collageEndpoints={
     GET_ALL_STUDENT_API:BASE_URL+"/profile/getAllStudent",
-    GET_ALL_COLLAGE_PROFILE_API:BASE_URL + "/profile/getCollageDetails"
+    GET_ALL_COLLAGE_PROFILE_API:BASE_URL + "/profile/getCollageDetails",
+    CREATE_COLLAGE_PROFILE:BASE_URL + "/profile/createCollageDetails",
+    ADD_BRANCH_DETAILS:BASE_URL + "/profile/addBranchDetails",
+    ADD_HOSTEL_DETAILS:BASE_URL + "/profile/addHostalDetails",
 }
-//post apiend[point]  verified
+//post append[point]  verified
 
 export const postendpoints={
     CREATEPOST_API:BASE_URL +"/post/createPost",
     GETALLPOST_API:BASE_URL + "/post/showAllPost",
     GETRATINGOFPOST_API:BASE_URL+ "/post/RatingAPost",
+    LIKEAPOST_API:BASE_URL + "/post/likePost",
+    COMMENTONAPOST_API:BASE_URL + "/post/commentOnPost", 
+    GETALLCOMMENT_API:BASE_URL + "/post/getCommnet"
 }
 
 //settings page api
