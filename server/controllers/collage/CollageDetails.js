@@ -19,7 +19,7 @@ exports.updateCollageDetails=async (req,res)=>{
             country,
             bloodgroup,
                                                     }=req.body;
-        //geting id from user
+        //getting id from user
         const id=req.user.id;
         const userDetails=await User.findById(id);
         console.log("userdetails",userDetails.collageinfo)
@@ -107,14 +107,16 @@ exports.createCollageDetails=async (req,res)=>{
         const {
             collageName,
             about,
+            file
         }=req.body
 
-        const thumbnail=req.files.file
+        const thumbnail=file
+        console.log(collageName,about,thumbnail);
 
         if(!thumbnail){
             res.status(401).json({
                 message:"file are not found",
-                succcess:false,
+                success:false,
             })
         }
 
@@ -213,50 +215,60 @@ exports.addBranchDetails=async (req,res)=>{
     }
 }
 
-//add hostal details
-exports.addHostalDetails=async (req,res)=>{
-    try{
+exports.addHostalDetails = async (req, res) => {
+    try {
+      // Destructure the forms array from the request body
+      const { forms } = req.body;
+  
+      // Iterate over each form object
+      for (const form of forms) {
         const {
-            collageName,
-            hostalName,
-            about,
-        }=req.body
-
-        const thumbnail=req.files.file
-        const url=await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME)
-
-        if(!url){
-            res.status(401).json({
-                message:"file has not uploaded on cloufnary",
-                succcess:false,
-            })
+          collageName,
+          hostalName,
+          about,
+          file // Assuming you're sending file data in the request body
+        } = form;
+  
+        // Process file data (upload to cloudinary, etc.)
+        const thumbnail = file; // Assuming you've already handled file upload in middleware
+        const url = await uploadImageToCloudinary(thumbnail, process.env.FOLDER_NAME);
+  
+        // Check if file upload was successful
+        if (!url) {
+          return res.status(401).json({
+            message: "File has not uploaded to Cloudinary",
+            success: false
+          });
         }
-        const collage=await collageSchema.find({collageName})
-        const hostalDetails=await collageHostal.create({
-            hostalName:hostalName,
-            about:about,
-            imageUrl:url.secure_url,
-
-        })
-        collage.hostal=hostalDetails;
-        await collage.save;
-
-        res.status(200).json({
-            message:"hostal details added successfully",
-            succcess:true,
-            hostalDetails,
-
-        })
-
+  
+        // Create collageHostal document
+        const collage = await collageSchema.findOne({ collageName }); // Assuming you have collageSchema defined
+        const hostalDetails = await collageHostal.create({
+          hostalName: hostalName,
+          about: about,
+          imageUrl: url.secure_url
+        });
+  
+        // Assign hostalDetails to collage
+        collage.hostal = hostalDetails;
+        await collage.save();
+      }
+  
+      // Send response
+      res.status(200).json({
+        message: "Hostal details added successfully",
+        success: true
+      });
+    } catch (error) {
+      res.status(400).json({
+        message: "Something went wrong while updating the hostal details",
+        success: false,
+        error: error.message
+      });
     }
-    catch(error){
-        res.status(400).json({
-            message:"somthing error while updating the hostal details",
-            succcess:false,
-            error:error.message,
-        })
-    }
-}
+  };
+
+
 //get all collage details
 exports.getCollageDetails=async (req,res)=>{
     try{
@@ -275,7 +287,8 @@ exports.getCollageDetails=async (req,res)=>{
             message:"collage details are",
             succcess:true,
             collageData,
-            hostalData,branchData
+            hostalData,
+            branchData
             
         })
        

@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import {updateProfileDetails} from "../../../service/operations/profileApi"
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { Input } from '../../../components/ui/input';
+import { Button } from '../../../components/ui/button';
 const formdata=[
     {name:"firstName",id:"firstname",type:"text",label:"Name"},
     {name:"number",id:"number",type:"text",label:"M.No"},
@@ -34,11 +36,11 @@ const UpdateProfile = () => {
           formdata.map((item,index)=>(
             <div key={index} >
                 <label htmlFor={item.id} className=' font-semibold'> {item.label}</label>
-                <input id={item.id} className={`${styledata}`}  type={item.type}  {...register(`${item.name}`)} />
+                <Input id={item.id} className={`${styledata}`}  type={item.type}  {...register(`${item.name}`)} />
             </div> ))
         }
         </div>
-        <button type='submmit' className=' w-[12rem] border px-4 py-2 font-semibold rounded-md hover:bg-slate-50 '>Update</button>
+        <Button type='submmit' className=' w-[12rem] '>Update</Button>
     </form>
     </div>
   )

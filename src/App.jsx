@@ -1,5 +1,5 @@
 
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Profile from './pages/Profile';
 import Collage from './pages/Collage';
 import Signin from './pages/Signin';
@@ -21,30 +21,35 @@ import CeStudent from './component/profilecomp/collagepro/CeStudent';
 import AiStudent from './component/profilecomp/collagepro/AiStudent';
 import UpdateProfile from './component/profilecomp/studentpro/UpdateProfile';
 import InternetAvable from './component/setting/InternetAvable';
-import CollageProfile from './component/collage/CollageProfile';
+import CollageProfile from './component/collage/LandingPage';
 import CollagePage from './component/collage/CollagePage';
-
+import AddBranchDetails from './component/collage/form/AddBranchDetails';
+import AddHostelDetails from './component/collage/form/AddHostelDetails';
+import CreateCollageProfile from './component/collage/form/CollageProfile';
 
 
 function App() {
- 
-  
-  
-  
+
+
+
+
   return (
     <div className="flex-row justify-center mt-16  min-h-screen">
-    
+
       <Routes>
-        <Route path="/login" element={<Signin />} /> 
-        <Route path="/signup" element={<SignUp />} />  
-        <Route path="/verify-email" element={<VerifyEmail />}/> 
+        <Route path="/login" element={<Signin />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
       </Routes>
-      <ProctedRoutes> <Navbar/>
+      <ProctedRoutes> <Navbar />
         <Routes>
-          <Route path="/" element={<Home /> }/>
-          <Route path="/collage" element={<Collage/>} >
-            <Route index element={<CollagePage/>}/>
-            <Route path='collage_profile' element={<CollageProfile/>} />
+          <Route path="/" element={<Home />} />
+          <Route path="/collage" element={<Collage />} >
+            <Route index element={<CollagePage />} />
+            <Route path='collage_profile' element={<CollageProfile />} />
+            <Route path='create_collage_profile' element={<CreateCollageProfile />} />
+            <Route path='add_branch_details' element={<AddBranchDetails />} />
+            <Route path='add_hostel_details' element={<AddHostelDetails />} />
           </Route>
           {/* <Route path='/collage-student-details' element={<CollageStudentDetails/>} >
 
@@ -60,21 +65,21 @@ function App() {
           </Route>  */}
 
 
-          <Route path="/profile" element={<Profile /> }>
-    
-            <Route index element={<StudentProfile/>}/>
-            <Route path="infolink" element={<StudentProfile/>}/>
-            <Route path="collageinfo" element={<CollageInfo/>}/>
-            <Route path="docinfo" element={<DocInfo/>}/>
-            <Route path="updateform" element={<StudentUpdateForm/>}/>
-            <Route path="updateprofile" element={<UpdateProfile/>}/>
-            
+          <Route path="/profile" element={<Profile />}>
+
+            <Route index element={<StudentProfile />} />
+            <Route path="infolink" element={<StudentProfile />} />
+            <Route path="collageinfo" element={<CollageInfo />} />
+            <Route path="docinfo" element={<DocInfo />} />
+            <Route path="updateform" element={<StudentUpdateForm />} />
+            <Route path="updateprofile" element={<UpdateProfile />} />
+
           </Route>
-          <Route path='/internet' element={<InternetAvable/>}/>
+          <Route path='/internet' element={<InternetAvable />} />
         </Routes>
       </ProctedRoutes>
-  
-      </div>
+
+    </div>
   );
 }
 export default App;
