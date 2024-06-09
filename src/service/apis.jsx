@@ -1,6 +1,6 @@
 
-// const BASE_URL="http://localhost:2000/api/v1"
-const BASE_URL="https://connect-student.onrender.com/api/v1"
+const BASE_URL="http://localhost:2000/api/v1"
+// const BASE_URL="https://connect-student.onrender.com/api/v1"
 // const BASE_URL = process.env.REACT_APP_BASE_URL
 
 //auth endpoint
@@ -12,7 +12,8 @@ export const endpoints={
     LOGIN_API:BASE_URL +"/auth/login",
     RESETPASSWORD_API:BASE_URL+"/auth/changePassword",
     RESETPASSWORDTOKEN_API:BASE_URL + "/auth/reset-password-token",
-    REFRESH_PAGE:BASE_URL+"/auth/refresh_page"
+    REFRESH_PAGE:BASE_URL+"/auth/refresh_page",
+    UPDATE_PROFILE_PHOTO:BASE_URL+"/auth/updatePhoto"
 }
 
 //profile endpoint

@@ -7,7 +7,8 @@ const {
     login,
     signUp,
     sendOTP,
-    changePassword
+    changePassword,
+    updateProfilePhoto
 }=require("../controllers/Auth");
 
 const {resetPasswordToken,
@@ -33,6 +34,7 @@ router.post("/sendOTP",sendOTP);
 
 //Route for user changePassword
 router.post("/changePassword",changePassword);
+router.post("/updatePhoto",auth,updateProfilePhoto)
 
 
 

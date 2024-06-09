@@ -5,6 +5,7 @@ import {AiOutlineLinkedin} from 'react-icons/ai';
 import { BsBookmark } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../../service/operations/profileApi';
+import { CiEdit } from "react-icons/ci";
 const ShortDesc = () => {
 
   const user = useSelector((state) => state.profile.user)
@@ -23,7 +24,10 @@ const ShortDesc = () => {
   return (
     <div className='flex-row justify-center  text-sm  border w-full  shadow-sm rounded-xl mx-auto  '>
       <div className='flex-row justify-center mx-auto w-full text-center font-semibold items-center' >
-        <img src={mountain} alt='..' sizes={10} className=' relative h-20 w-full object-cover rounded-t-xl ' />
+        <div className=' relative'>
+         <img src={mountain} alt='..' sizes={10} className=' relative h-20 w-full object-cover rounded-t-xl ' />
+         <CiEdit size={20} className='absolute top-1 right-0 bg-white rounded-full p-1 cursor-pointer'/>
+        </div>
         <div className=' grid gap-4 absolute top-12 place-items-center justify-center mx-auto left-0 right-0  pb-2'>
           <img src={user?.image} className=' h-[70px] w-[70px] rounded-full object-cover object-center z-40'
           alt="hello" />

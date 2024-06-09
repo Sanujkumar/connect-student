@@ -3,6 +3,10 @@ import { getCollageProfileDetails } from "../../service/operations/collageStuden
 import { useSelector } from 'react-redux';
 import { CgEditHighlight } from "react-icons/cg";
 import LandingPage from './LandingPage';
+import { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from "../../components/ui/popover";
+import CollageProfile from './form/AddBranchDetails';
+import AddHostelDetails from './form/AddHostelDetails';
+import AddBranchDetails from './form/AddBranchDetails';
 const CollagePage = () => {
   const [data, setData] = useState([]);
   const [CollageFacalitiesData, setCollageFacalitiesData] = useState([])
@@ -41,10 +45,20 @@ const CollagePage = () => {
           {
             data?.map((item, index) => (
               <div key={index} className=''>
-                <div>
-                  <img src={item?.imageUrl} alt='collage image' className=' static h-40 w-full object-cover mb-6 rounded-md  ' />
-                  <CgEditHighlight className='absolute top-20 right-36 z-10 cursor-pointer hover:text-xl  ' />
+                <div className=" w-full">
+                  <div className="grid grid-cols-1 w-full  static  object-cover mb-6 rounded-md">
+                    <img src={item?.imageUrl} alt="collage image" className="w-full h-24 object-cover" />
+                  </div>
+                  <Popover className="w-full">
+                    <PopoverTrigger>
+                      <CgEditHighlight className="absolute top-20 right-36 z-10 cursor-pointer hover:text-xl" />
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <CollageProfile />
+                    </PopoverContent>
+                  </Popover>
                 </div>
+
 
                 <p className=' absolute font-bold left-0 right-0 z-10 top-24'>
                   {item.collageName && item.collageName.length > 100 ? `${item.collageName.substring(0, 60)}...` : item.collageName}
@@ -65,11 +79,14 @@ const CollagePage = () => {
 
           <div className=' h-auto w-full gap-y-4'>
             <div className=' flex justify-between'>
-              <span className=' text-black font-semibold text-xl' >Our Collage Facalities</span>
-              <button className=' p-1 border border-solid  rounded-md  hover:bg-neutral-200 flex items-center gap-x-2 ' >
-                <span>Edit</span>
+              <span className=' text-black font-semibold text-xl' >Our Collage Facilities</span>
+              <Popover>
+                <PopoverTrigger><CgEditHighlight size={30} className=' p-1 border border-solid  rounded-md  hover:bg-neutral-200 flex items-center gap-x-2 ' /></PopoverTrigger>
+                <PopoverContent><AddHostelDetails /></PopoverContent>
+              </Popover>
 
-                <CgEditHighlight /></button>
+
+
             </div>
             <ul className='  grid grid-col grid-cols-5 content-end'>
 
@@ -98,10 +115,13 @@ const CollagePage = () => {
           <div className=' h-auto w-full'>
             <div className=' flex justify-between'>
               <span className=' text-black font-semibold text-xl' >Avable Branch</span>
-              <button className=' p-1 border border-solid  rounded-md  hover:bg-neutral-200 flex items-center gap-x-2 ' >
-                <span>Edit</span>
 
-                <CgEditHighlight /></button>
+              <Popover>
+                <PopoverTrigger><CgEditHighlight size={30} className=' p-1 border border-solid  rounded-md  hover:bg-neutral-200 flex items-center gap-x-2 '>Edit</CgEditHighlight></PopoverTrigger>
+                <PopoverContent><AddBranchDetails /></PopoverContent>
+              </Popover>
+
+
             </div>
             <ul className='  grid grid-col grid-cols-5 content-end'>
 

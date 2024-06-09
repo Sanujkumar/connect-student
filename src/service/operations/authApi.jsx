@@ -10,7 +10,8 @@ const {
     SIGNUP_API,
     LOGIN_API,
     RESETPASSWORD_API,
-    RESETPASSTOKEN_API
+    RESETPASSTOKEN_API,
+    UPDATE_PROFILE_PHOTO
 }=endpoints
 
 
@@ -196,3 +197,22 @@ export function resetpassword(password,confirmPassword,token,navigate){
     }
 }
 
+//update the user photo
+
+export  function updatePhoto (formData,token){
+    return async(dispatch)=>{
+        dispatch(setLoding(true))
+    
+    try{
+        const headers = { 'Authorization': `Bearer ${token}` };
+        const response=await apiConnector("post",UPDATE_PROFILE_PHOTO,formData,headers);
+        console.log("this is new url",response.data);
+        dispatch(setLoding(false))
+        return response.data;
+    }
+    catch(err){
+        // alert("something is issue while uploading the photo"),
+        console.log("err",err.message)
+    }
+}
+}
