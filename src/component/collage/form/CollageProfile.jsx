@@ -4,26 +4,27 @@ import { useNavigate } from 'react-router-dom';
 import { FaUniversity, FaInfoCircle, FaFileUpload } from 'react-icons/fa';
 import { createCollageProfile } from '../../../service/operations/collageStudentApi';
 import { useSelector } from 'react-redux';
+
 const CollageProfile = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.auth.token)
-  const onSubmit = async(data) => {
-    console.log("this is file",data.file[0]);
-    let formData = new FormData()
-    formData.append('file', data.file);
-    formData.append('about',data.about);
-    formData.append('collageName',data.collageName)
-    // Handle the form submission, e.g., send data to the server
-    const res=await createCollageProfile(token,formData,navigate)
-    console.log("creating the collage profile is",res)
+  const token = useSelector((state) => state.auth.token);
+
+  const onSubmit = async (data) => {
+    let formData = new FormData();
+    formData.append('file', data.file[0]);
+    formData.append('about', data.about);
+    formData.append('collageName', data.collageName);
+
+    const res = await createCollageProfile(token, formData, navigate);
+    console.log("creating the collage profile is", res);
   };
 
   return (
-    <div className=" flex items-center justify-center min-w-full  p-4">
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-lg rounded-lg p-8 space-y-6 w-full ">
+    <div className="flex justify-center  min-h-screen bg-gray-100 p-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-lg p-8 space-y-6 w-full max-w-2xl shadow-lg">
         <h1 className="text-2xl font-bold text-gray-700 text-center mb-6">Create Collage Profile</h1>
-        
+
         <div className="flex flex-col w-full">
           <label className="mb-2 text-gray-700 flex items-center">
             <FaUniversity className="mr-2" />
@@ -43,7 +44,7 @@ const CollageProfile = () => {
             About
           </label>
           <input
-            {...register("about",  )}
+            {...register("about")}
             className={`border ${errors.about ? 'border-red-500' : 'border-gray-300'} p-3 rounded-lg w-full`}
             placeholder="Tell us about yourself"
           />

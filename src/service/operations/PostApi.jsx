@@ -4,7 +4,7 @@ import { apiConnector } from "../apiconnector"
 import { postendpoints } from "../apis"
 import { setClose } from "../../dataHouse/slice/authSlice"
 import { data } from '../../component/data/AllStudent'
-import { setPostdata} from '../../dataHouse/slice/postSlice'
+import { setPostdata } from '../../dataHouse/slice/postSlice'
 import { setComment } from '../../dataHouse/slice/postSlice'
 import { Hearts } from 'react-loader-spinner'
 const {
@@ -18,37 +18,37 @@ const {
 //to store the post 
 let result = []
 
-export  function getAllPost(token) {
-  return async(dispatch)=>{
+export function getAllPost(token) {
+  return async (dispatch) => {
 
-  
- 
-  try {
-    const headers = { 'Authorization': `Bearer ${token}` };
 
-    const responce = await apiConnector("GET",GETALLPOST_API, {}, headers);
 
-console.log("this is new post design",responce)
-    //validation
-    if (!responce.data.success) {
-      throw new Error(responce.data.message)
+    try {
+      const headers = { 'Authorization': `Bearer ${token}` };
+
+      const responce = await apiConnector("GET", GETALLPOST_API, {}, headers);
+
+      console.log("this is new post design", responce)
+      //validation
+      if (!responce.data.success) {
+        throw new Error(responce.data.message)
+      }
+
+      result = responce.data.data;
+      console.log("this is from post api ", responce.data.data)
+      result.forEach((e) => {
+        // console.log("app post are these",e)
+        dispatch(setPostdata(e))
+      })
+
+      // return result;
+
     }
+    catch (error) {
+      toast.success("something is issue while fetching the post")
+      console.log("get error in fetching the post ", error)
 
-    result = responce.data.data;
-    console.log("this is from post api ",responce.data.data)
-    result.forEach((e)=>{
-      // console.log("app post are these",e)
-      dispatch(setPostdata(e))
-    })
-    
-    // return result;
-
-  }
-  catch (error) {
-    toast.success("something is issue while fetching the post")
-    console.log("get error in fetching the post ", error)
-
-  }
+    }
   }
 }
 
@@ -68,13 +68,13 @@ export function createPost(formData, navigate, token) {
         navigate("/internet")
       }
 
-      console.log("from create post api", formData.desc,formData.file);
+      // console.log("from create post api", formData.desc, formData.file);
       const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       };
-      
-      
+
+
       const response = await apiConnector("POST", CREATEPOST_API, formData, headers);
       dispatch(setLoding(false))
       console.log("post API Response...", response.data.data);
@@ -82,13 +82,13 @@ export function createPost(formData, navigate, token) {
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
-      
+
 
       dispatch(setPostdata(response?.data.data))
       toast.success("Post created successfully");
       dispatch(setClose(false))
-      
-      
+
+
     }
     catch (error) {
       console.log("Post API error...", error.message);
@@ -111,8 +111,8 @@ export default function RatingAPost(like, dislike, share, postId, token) {
         {
           like, dislike, share, postId
         }, headers);
-      
-      let dataweb={"name":"roshan","town":"sit"}
+
+      let dataweb = { "name": "roshan", "town": "sit" }
       const newSocket = new WebSocket('ws://localhost:2000/');
       newSocket.onopen = () => {
         console.log('Connection established');
@@ -135,71 +135,78 @@ export default function RatingAPost(like, dislike, share, postId, token) {
 
 //LIKE THE POST
 
-export async function likePost (post_id,token){
-        try{
-          const headers = { 'Authorization': `Bearer ${token}` };
-          // console.log(post_id,token)
-          const responce=await apiConnector("post",LIKEAPOST_API,{post_id},headers);
-          // console.log("this is the responce",responce)
-          if(responce){
-            toast.success(responce?.data.message)
-          }
-          
-        }
-        catch(err){
-          console.log("something is issue while liking the post",err)
-        }
+export async function likePost(post_id, token) {
+  try {
+    const headers = { 'Authorization': `Bearer ${token}` };
+    // console.log(post_id,token)
+    const responce = await apiConnector("post", LIKEAPOST_API, { post_id }, headers);
+    // console.log("this is the responce",responce)
+    if (responce) {
+      toast.success(responce?.data.message)
+    }
+
+  }
+  catch (err) {
+    console.log("something is issue while liking the post", err)
+  }
 }
 
 
 //comment on post
 
-export  async function postComment(token,post_id,data){
-  
-    
-    try{
-        const headers = { 'Authorization': `Bearer ${token}` };
-        const responce=await apiConnector("post",COMMENTONAPOST_API,{comments:data,post_id},headers)
-        console.log("comment responce ",responce)
-        if(responce){
-          toast.success("you comment added")
-        }
-        // arrOfC=responce.data
-        
-        // dispatch(setComment(responce?.data.data))
-        return responce?.data.data;
+export async function postComment(token, post_id, data) {
+
+
+
+    try {
+      const headers = { 'Authorization': `Bearer ${token}` };
+      const responce = await apiConnector("post", COMMENTONAPOST_API, { comments: data, post_id }, headers)
+      console.log("comment responce ", responce)
+      if (responce) {
+        toast.success("you comment added")
+      }
+      // arrOfC=responce.data
+
+      // setComment(responce?.data.data)
+      
+      return responce?.data.data;
     }
-    catch(err){
-      console.log("err while comment on post ",err)
+    catch (err) {
+      console.log("err while comment on post ", err)
     }
   }
+
 
 
 
 //get all comment of post
 
-export async function getAllComment(token,post_id){
-  console.log("this is post id of api ",post_id)
-    let commentArray=[];
-    try{
-      const headers = { 'Authorization': `Bearer ${token}`};
-      
-        const responce= await apiConnector("GET",GETALLCOMMENT_API,{post_id},headers);
-        console.log("this is comment list of post ",responce);
-        if(responce){
-          toast.success("all comment fetched")
-        }
-        commentArray=responce.data.data;
-        // commentArray.forEach((e)=>{
-        //   dispatch(setComment(e))
-        // })
-        return commentArray;
-        
+export async function getAllComment(token, post_id) {
+  
+
+    let commentArray = [];
+    try {
+      const headers = { 'Authorization': `Bearer ${token}` };
+
+      const responce = await apiConnector("post", GETALLCOMMENT_API, { postId: post_id }, headers);
+      console.log("this is comment list of post ", responce.data.data);
+      if (responce) {
+        toast.success("all comment fetched")
+      }
+      commentArray = responce.data.data;
+
+      // commentArray.forEach((e) => {
+      //   dispatch(setComment(e))
+      // })
+      return responce.data.data;
+
+
     }
-    catch(err){
-      console.log("err while fetching the comments ",err)
+    catch (err) {
+      console.log("err while fetching the comments ", err)
     }
   }
 
 
-  
+
+

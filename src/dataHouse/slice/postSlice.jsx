@@ -14,6 +14,7 @@ const postData=createSlice({
             state.postList.unshift(action.payload)
         },
         setComment(state,action){
+            
             state.commentList.unshift(action.payload)
         }
     }

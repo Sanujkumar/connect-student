@@ -45,14 +45,13 @@ export async function getCollageProfileDetails(token){
 
 export async function createCollageProfile(token,formData,navigate){
     try{
-        const headers = {'Authorization': `Bearer ${token}`};
-        console.log("data of collage profile is",formData.file)
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          };
+        // console.log("data of collage profile is",formData)
 
-        const response=await apiConnector("post",CREATE_COLLAGE_PROFILE,{
-            file:formData.file,
-            about:formData.about,
-            collageName:formData.collageName,
-        },headers);
+        const response=await apiConnector("post",CREATE_COLLAGE_PROFILE,formData,headers);
 
         console.log("this is response of createCollageProfile",response)
         if(response){
@@ -62,15 +61,19 @@ export async function createCollageProfile(token,formData,navigate){
 
     }
     catch(err){
-        console.log("error while creating the collage profile")
+        console.log("error while creating the collage profile",err.message)
     }
 }
 
 //to add the branch details 
-export async function addBranchDetails(token,body_data,navigate){
+export async function addBranchDetails(token,formData,navigate){
     try{
-        const headers = {'Authorization': `Bearer ${token}`};
-        const response=await apiConnector("post",ADD_BRANCH_DETAILS,body_data,headers);
+        console.log(token)
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          };
+        const response=await apiConnector("post",ADD_BRANCH_DETAILS,formData,headers);
 
         console.log("this is response of createCollageProfile",response)
         if(response){

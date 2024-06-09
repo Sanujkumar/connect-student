@@ -19,7 +19,7 @@ router.get("/showAllPost",auth,showAllPost);
 router.post("/RatingAPost",auth,RatingAPost);
 router.post("/likePost",auth,likePost);
 router.post("/commentOnPost",auth,commentOnPost);
-router.get("/getCommnet",auth,getCommnet);
+router.post("/getCommnet",auth,getCommnet);
 
 
 

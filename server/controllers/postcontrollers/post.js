@@ -197,7 +197,7 @@ exports.likePost=async(req,res)=>{
 
     }
     catch(err){
-        console.log(err);
+        // console.log(err);
         return res.status(400).json({
             success:false,
             message:'post does not liked',
@@ -279,9 +279,9 @@ exports.commentOnPost=async(req,res)=>{
 
 exports.getCommnet=async(req,res)=>{
     try{
-        const post_id=req.body.post_id;
+        const post_id=req.body.postId;
         const page=1, limit=10;
-        console.log("this is new post comment id",post_id)
+        
         if(!post_id){
             return res.status(401).json({
                 message:"post id is missing from the request",

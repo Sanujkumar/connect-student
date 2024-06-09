@@ -104,14 +104,14 @@ exports.getAllStudent=async (req,res)=>{
 exports.createCollageDetails=async (req,res)=>{
     try{
         //fetch all details from body
-        const {
-            collageName,
-            about,
-            file
-        }=req.body
+        
+        const { collageName,about}=req.body
 
-        const thumbnail=file
-        console.log(collageName,about,thumbnail);
+        console.log(collageName,about);
+        // const thumbnail=req.files.file
+        const thumbnail=req.files.file;
+        console.log(thumbnail)
+        
 
         if(!thumbnail){
             res.status(401).json({
@@ -124,7 +124,7 @@ exports.createCollageDetails=async (req,res)=>{
         if(!collageName || !about){
             res.status(401).json({
                 message:"All fields are required",
-                succcess:false
+                success:false
             })
         }
         const url=await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME)
@@ -167,17 +167,18 @@ exports.createCollageDetails=async (req,res)=>{
 
 exports.addBranchDetails=async (req,res)=>{
     try{
+        console.log("request is coming..................")
         const {
             collageName,
             branchName,
             about,
-            noOfSheet,
+            
 
         }=req.body
 
         
         const thumbnail=req.files.file
-        console.log(collageName,branchName,about,noOfSheet,thumbnail)
+        console.log(collageName,branchName,about,thumbnail)
         const url=await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME)
                 console.log("this is the cloudnary url",url)
         if(!url){
@@ -189,7 +190,7 @@ exports.addBranchDetails=async (req,res)=>{
         const branchDetails=await collageBranch.create({
             branchName:branchName,
             about:about,
-            noOfSheet:noOfSheet,
+            
             imageUrl:url.secure_url,
 
         })
@@ -208,7 +209,7 @@ exports.addBranchDetails=async (req,res)=>{
     }
     catch(error){
         res.status(400).json({
-            message:"somthing error while updated branch details",
+            message:"something error while updated branch details",
             succcess:false,
             error:error.message,
         })

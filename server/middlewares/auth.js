@@ -7,10 +7,11 @@ const User=require("../modules/user/User");
 exports.auth=(req,res,next)=>{
     try{
         //extract the token
-        const token=  req.cookies.token || req.body.token || req.headers.authorization.split(' ')[1];
+        const token=  req.cookies.token || req.body.token || req.headers['token'] || req.headers.authorization.split(' ')[1];
 
          //if token is missing the return resp
-         console.log("token is this",token)
+        //  console.log("token is this",req.cookies.token)
+         
          if(!token){
             return res.status(401).json({
                 success:false,
