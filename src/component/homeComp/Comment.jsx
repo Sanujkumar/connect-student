@@ -61,14 +61,11 @@ const Comment = ({ post_id }) => {
       </div>
       <div className="">
         {loading ? (
-          <div>
-            <div>
+          <div className=" flex gap-x-2">
+          
               <Skeleton className="w-10 h-10 rounded-full" />
-            </div>
-            <div className="flex flex-col gap-2">
               <Skeleton className="w-40 h-4 rounded-full" />
-              <Skeleton className="w-24 h-4 rounded-full" />
-            </div>
+            
           </div>
         ) : (
           commentData.map((item, index) => (
