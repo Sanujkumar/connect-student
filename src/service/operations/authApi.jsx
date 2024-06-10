@@ -11,7 +11,8 @@ const {
     LOGIN_API,
     RESETPASSWORD_API,
     RESETPASSTOKEN_API,
-    UPDATE_PROFILE_PHOTO
+    UPDATE_PROFILE_PHOTO,
+    UPDATE_PROFILE_BANNER
 }=endpoints
 
 
@@ -215,4 +216,19 @@ export  function updatePhoto (formData,token){
         console.log("err",err.message)
     }
 }
+}
+
+//update banner
+export async function updateBanner (formData,token){
+    try{
+        const headers = { 'Authorization': `Bearer ${token}` };
+        const response=await apiConnector("post",UPDATE_PROFILE_BANNER,formData,headers);
+        console.log("this is new url",response.data);
+        
+        return response.data;
+    }
+    catch(err){
+     
+        console.log("err",err.message)
+    }
 }

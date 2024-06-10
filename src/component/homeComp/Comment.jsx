@@ -46,37 +46,35 @@ const Comment = ({ post_id }) => {
         <form className="flex justify-center" onSubmit={handlePost}>
           <input
             name="user_comment"
-            placeholder="Enter your comment"
+            placeholder="post your comment"
             value={desc}
             onChange={handleChanges}
-            className="w-[80%] m-2 p-2 border rounded-md font-mono border-b outline-none"
+            className="w-[80%] m-2 p-2 border rounded-xl font-mono border-b outline-none"
           />
           <button
             type="submit"
-            className="bg-gray-100 text-black text-sm w-[10%] m-2 rounded font-semibold hover:bg-slate-200"
+            className="bg-gray-100 text-black text-sm w-[10%] m-2 rounded-md font-bold hover:bg-slate-200"
           >
-            Post
+            Reply
           </button>
         </form>
       </div>
       <div className="">
         {loading ? (
-          <div className=" flex gap-x-2">
-          
-              <Skeleton className="w-10 h-10 rounded-full" />
-              <Skeleton className="w-40 h-4 rounded-full" />
-            
+          <div className=" flex gap-x-2 items-center">
+            <Skeleton className="w-10 h-10 rounded-full" />
+            <Skeleton className="w-[80%] h-6 rounded-xl mr-4" />
           </div>
         ) : (
           commentData.map((item, index) => (
             <div key={index} className="  hover:bg-neutral-100 border-t">
-            <div className="flex gap-x-3 ml-4 mr-2 p-2 ">
-              <img
-                src={item?.user?.image}
-                className="w-[2rem] h-[2rem] border object-cover place-self-center place-items-center rounded-full"
-                alt="user"
-              />
-              <p>{item?.content}</p>
+              <div className="flex gap-x-3 ml-4 mr-2 p-2 ">
+                <img
+                  src={item?.user?.image}
+                  className="w-[2rem] h-[2rem] border object-cover place-self-center place-items-center rounded-full"
+                  alt="user"
+                />
+                <p>{item?.content}</p>
               </div>
             </div>
           ))

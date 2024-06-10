@@ -6,6 +6,7 @@ import Advertising from '../component/companyadverties/Advertising';
 import VirutalId from '../setup/virutalcard/VirutalId';
 
 const Home = () => {
+  
   return (
     <div className='flex justify-center relative ' >
     

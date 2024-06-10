@@ -11,8 +11,6 @@ const InfiniteData = () => {
     const dispatch=useDispatch()
     const token=useSelector(state=>state.auth.token)
     const allpost=useSelector(state=>state.post.postList)
-    console.log("our post is coming is here ",allpost)
-    console.log("length of the array is ",allpost.length)
     
 
     useEffect(()=>{
@@ -21,11 +19,14 @@ const InfiniteData = () => {
 
   return (
     <div>
+   
       <InfiteScroll 
       dataLength={dataSource.length}
       className='grid grid-cols-[36rem] justify-center scroll-smooth'>
       <PostDesign data={allpost}/>
         </InfiteScroll>
+       
+   
     </div>
   )
 }

@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { ColorRing } from 'react-loader-spinner'
 import { useEffect,useState } from 'react';
 import { getUserDetails } from '../../../service/operations/profileApi';
 import { Button } from '../../../components/ui/button';
 import { CiEdit } from "react-icons/ci";
-import { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from "../../../components/ui/popover";
+import { Popover, PopoverTrigger, PopoverContent } from "../../../components/ui/popover";
 import { Input } from "../../../components/ui/input";
 import { updatePhoto } from '../../../service/operations/authApi';
+import LoadingIcon from "../../../common/loading/loadingIcon"
 const StudentProfile = () => {
   const user = useSelector((state) => state.profile.user)
   const loading = useSelector((state) => state.auth.loading)
@@ -46,16 +46,7 @@ const StudentProfile = () => {
   return (
     <div>
       {
-        loading ? (<ColorRing
-          className=" mx-auto border-white p-4"
-          visible={true}
-          height="80"
-          width="80"
-          ariaLabel="color-ring-loading"
-          wrapperStyle={{}}
-          wrapperClass="color-ring-wrapper"
-          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-        />)
+        loading ? (<LoadingIcon/>)
           : (<div className='text-black  gap-y-4 text-lg '>
             <div className=' flex justify-between font-bold  shadow-lg items-center p-2  ' >
               <p>Basics Details</p>

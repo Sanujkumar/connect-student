@@ -369,3 +369,40 @@ exports.updateProfilePhoto = async (req, res) => {
         })
     }
 }
+
+//update banner
+
+exports.updateBanner = async (req, res) => {
+    try {
+        console.log("request is coming...........")
+        const thumbnail = req.files.file;
+        const id = req.user.id;
+        console.log("banner is", id)
+        //upload to cloudinary
+        const photo = await uploadImageToCloudinary(thumbnail, process.env.FOLDER_NAME);
+        //cleaning the file from server
+        fs.unlinkSync(thumbnail.tempFilePath)
+
+        await User.findByIdAndUpdate(
+            id,
+            {
+                banner: photo.secure_url
+            },
+            { new: true }
+        )
+
+        res.status(200).json({
+            bannerUrl: photo.secure_url,
+
+        })
+
+
+    }
+    catch (err) {
+        res.status(501).json({
+            message: "err while uploading the banner photo",
+            success: false,
+            err: err.message,
+        })
+    }
+}

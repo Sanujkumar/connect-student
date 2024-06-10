@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { CiHeart, CiShare1 } from "react-icons/ci";
+import React, {  useState } from "react";
+import { CiShare1 } from "react-icons/ci";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { BsBookmark } from "react-icons/bs";
 import { BiMessage } from "react-icons/bi";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllComment } from "../../service/operations/PostApi";
 import { RWebShare } from "react-web-share";
 import LikeComponents from "./LikeComponents";
 import Comment from "./Comment";
 import { Popover, PopoverTrigger, PopoverContent } from "../../components/ui/popover"
 import { Skeleton } from "../../components/ui/skeleton";
+import TooltipD from "../../common/tooltipdesign/TooltipD";
+import { useSelector } from "react-redux";
+import LostShadow from "../../common/loading/postShadow"
 
 const PostDesign = ({ data }) => {
   const [commentsVisibility, setCommentsVisibility] = useState({});
-
+  const load=useSelector(state=>state.auth.loading)
   const handleComment = async (post_id) => {
     const isVisible = commentsVisibility[post_id];
     setCommentsVisibility((prev) => ({
@@ -23,8 +24,11 @@ const PostDesign = ({ data }) => {
   };
 
   return (
-    <div>
-      {data.map((item, index) => (
+    <div >
+      {
+        load? (<LostShadow/>):
+      
+      ( data.map((item, index) => (
         <div
           className="flex-row justify-center shadow-sm  p-2 w-full bg-white border-x border-t cursor-pointer"
           key={index}
@@ -79,43 +83,50 @@ const PostDesign = ({ data }) => {
           </div>
 
           <div className="flex justify-end gap-x-20 p-2 mt-4 mx-4 items-center">
-            <LikeComponents
+
+            <TooltipD componentHover={<LikeComponents
+              
               item_id={item._id}
               isLiked={item.isLiked}
               total_like={item.total_like_count}
-            />
+            />} title={"like"} />
 
-            <div className="flex gap-2 items-center">
-              <button onClick={() => handleComment(item._id)}>
-                <BiMessage size={22} />
-              </button>
-              {item.total_comments}
-            </div>
 
-            <p className="flex gap-2 items-center">
-              <RWebShare
-                data={{
-                  text: "Like humans, flamingos make friends for life",
-                  url: "https://on.natgeo.com/2zHaNup",
-                  title: "Flamingos",
-                }}
-                onClick={() => console.log("shared successfully!")}
-              >
-                <button>
-                  <CiShare1 size={18} />
+            <TooltipD componentHover={
+              <div className="flex gap-x-1 items-center hover:text-cyan-800">
+                <button onClick={() => handleComment(item._id)}>
+                  <BiMessage size={32} className="cursor-pointer  hover:bg-cyan-100 rounded-full p-2" />
                 </button>
-              </RWebShare>
-              102
-            </p>
-            <p className="items-center">
-              <BsBookmark size={15} />
-            </p>
+                {item.total_comments}   </div>}
+              title={"comment"} />
+
+            <TooltipD componentHover={
+              <p className="flex gap-2 items-center">
+                <RWebShare
+                  data={{
+                    text: "Like humans, flamingos make friends for life",
+                    url: "https://on.natgeo.com/2zHaNup",
+                    title: "Flamingos",
+                  }}
+                  onClick={() => console.log("shared successfully!")}
+                >
+                  <button>
+                    <CiShare1 size={32} className="cursor-pointer  hover:bg-gray-200 hover:rounded-full p-2"/>
+                  </button>
+                </RWebShare>
+                102
+              </p>}
+              title={"share"} />
+            <TooltipD componentHover={
+              <p className="items-center">
+                <BsBookmark size={32} className="cursor-pointer  hover:bg-cyan-100 hover:rounded-full p-2 "/> </p>}
+              title={"Bookmark"} />
           </div>
           {commentsVisibility[item._id] && (
             <Comment post_id={item._id} />
           )}
         </div>
-      ))}
+      )))} 
     </div>
   );
 };
