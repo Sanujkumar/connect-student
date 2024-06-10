@@ -39,6 +39,9 @@ const userSchema=new mongoose.Schema({
     image:{
         type:String, 
     },
+    banner:{
+        type:String,
+    },
    otp:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"OTP"

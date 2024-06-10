@@ -13,7 +13,8 @@ export const endpoints={
     RESETPASSWORD_API:BASE_URL+"/auth/changePassword",
     RESETPASSWORDTOKEN_API:BASE_URL + "/auth/reset-password-token",
     REFRESH_PAGE:BASE_URL+"/auth/refresh_page",
-    UPDATE_PROFILE_PHOTO:BASE_URL+"/auth/updatePhoto"
+    UPDATE_PROFILE_PHOTO:BASE_URL+"/auth/updatePhoto",
+    UPDATE_PROFILE_BANNER:BASE_URL+"/auth/updateBanner"
 }
 
 //profile endpoint

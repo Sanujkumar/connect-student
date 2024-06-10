@@ -21,8 +21,8 @@ const LikeComponents = ({ item_id, isLiked,total_like }) => {
   };
 
   return (
-    <div className='flex gap-2'>
-    <button onClick={handleClick} className="cursor-pointer">
+    <div className='flex gap-x-1 hover:text-green-700 items-center'>
+    <button onClick={handleClick} className="cursor-pointer  hover:bg-green-100 rounded-full p-2">
       {likeInst ? <BiSolidLike /> : <AiOutlineLike />}
     </button>
     {totalLike}

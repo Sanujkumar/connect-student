@@ -22,7 +22,7 @@ export function getAllPost(token) {
   return async (dispatch) => {
 
 
-
+      dispatch(setLoding(true))
     try {
       const headers = { 'Authorization': `Bearer ${token}` };
 
@@ -36,6 +36,7 @@ export function getAllPost(token) {
 
       result = responce.data.data;
       console.log("this is from post api ", responce.data.data)
+      dispatch(setLoding(false))
       result.forEach((e) => {
         // console.log("app post are these",e)
         dispatch(setPostdata(e))
@@ -45,9 +46,8 @@ export function getAllPost(token) {
 
     }
     catch (error) {
+      dispatch(setLoding(false));
       toast.success("something is issue while fetching the post")
-      console.log("get error in fetching the post ", error)
-
     }
   }
 }

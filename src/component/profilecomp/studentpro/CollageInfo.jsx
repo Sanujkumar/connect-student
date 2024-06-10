@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {ColorRing } from 'react-loader-spinner'
 import { getUserDetails } from '../../../service/operations/profileApi'
 import { Button } from '../../../components/ui/button'
+import LoadingIcon from "../../../common/loading/loadingIcon"
 const CollageInfo = () => {
   
   const {user}=useSelector((state)=>state.profile)
@@ -16,16 +17,7 @@ const CollageInfo = () => {
   return (
     <div>
 {
-  loading ? (<ColorRing 
-                className=" mx-auto border-white p-4"
-                  visible={true}
-                  height="80"
-                  width="80"
-                  ariaLabel="color-ring-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="color-ring-wrapper"
-                  colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-                  />):
+  loading ? (<LoadingIcon/>):
   (<di  className='text-black  gap-y-4 text-lg w-6/12'>
         <div className=' flex justify-between font-bold  shadow-lg items-center p-2  ' >
           <p>Collage Details</p>
