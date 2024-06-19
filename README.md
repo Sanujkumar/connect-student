@@ -1,6 +1,6 @@
 # connect student
 
- At Stay with Privacy, our team of experts understands the importance of maintaining privacy in today's interconnected world. We believe that everyone should have control over their personal data and the freedom to navigate the digital landscape without compromising their privacy. With this vision in mind, we develop innovative tools and technologies to empower individuals and businesses to protect their online presence.
+at Stay with Privacy, our team of experts understands the importance of maintaining privacy in today's interconnected world. We believe that everyone should have control over their personal data and the freedom to navigate the digital landscape without compromising their privacy. With this vision in mind, we develop innovative tools and technologies to empower individuals and businesses to protect their online presence.
 
 
 
